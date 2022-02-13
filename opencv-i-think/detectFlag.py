@@ -2,7 +2,7 @@ import cv2 as cv
 from cv2 import Canny
 import numpy as np
 
-img = cv.imread('photos/750.jpg')
+img = cv.imread('opencv-i-think/photos/9502.jpg')
 
 #img = cv.GaussianBlur(preimg, (9,9), cv.BORDER_DEFAULT)
 #cv.imshow('first', img)
