@@ -9,9 +9,9 @@ capture = cv.VideoCapture(0)
 while True:
     def mathLol(a):
         heightHub = 78.0
-        startingInch = 109.0
+        startingInch = 127.5
 
-        startingDistancePixels = ((663*startingInch)/heightHub)
+        startingDistancePixels = ((424*startingInch)/heightHub)
 
         realDistance = ((heightHub*startingDistancePixels)/a)
 
@@ -19,7 +19,7 @@ while True:
 
         return (str(realDistance) + " Degree: " + str(degree))
 
-        
+    
 
 
 
@@ -62,7 +62,7 @@ while True:
         cv.rectangle(img3,top_left, bottom_right, 255, 2)
 
     imgH, imgW = img3.shape
-    calibZeroPixel = int(0.745 * imgH)
+    calibZeroPixel = int(0.877 * imgH)
 
     rectTop = top_left[1]
     rectBottom = bottom_right[1]
