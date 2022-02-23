@@ -1,10 +1,42 @@
 import cv2 as cv
 import numpy as np
 import math
-
-
+import threading
+from networktables import NetworkTables
 
 capture = cv.VideoCapture(0)
+
+Connected_to_server = False
+
+cond = threading.Condition()
+notified = [False]
+def connect():
+    cond = threading.Condition()
+    notified = [False]
+
+    def connectionListener(connected, info):
+        print(info, '; Connected=%s' % connected)
+        with cond:
+            notified[0] = True
+            cond.notify()
+
+
+    NetworkTables.initialize(server='roborio-2643-frc.local')
+    NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+
+    with cond:
+        print("Waiting")
+        if not notified[0]:
+            cond.wait()
+
+    return NetworkTables.getTable('vision-movement')
+
+
+if Connected_to_server:
+    table = connect()
+
+Distance = table.getNumber("Distance", 0.0)
+Degree = table.getNumber("Degree", 0.0)
 
 while True:
     def mathLol(a):
@@ -14,8 +46,10 @@ while True:
         startingDistancePixels = ((424*startingInch)/heightHub)
 
         realDistance = ((heightHub*startingDistancePixels)/a)
+        table.setNumber("Distance", realDistance)
 
         degree = (math.atan(startingDistancePixels/a)*180)/math.pi
+        table.setNumber("Degree", degree)
 
         return (str(realDistance) + " Degree: " + str(degree))
 
@@ -82,8 +116,11 @@ while True:
     cv.line(img3, (imageXisZero, 0), (imageXisZero, imgH), color=255, thickness=3)
 
     print(np.amax(highestMatch))
-    print("detected distance pixel: ", calibZeroPixel-detectedHeightY)
-    print("detected distance inches: ",  mathLol(calibZeroPixel-detectedHeightY))
+    mathLol(calibZeroPixel-detectedHeightY)
+    #print("detected distance pixel: ", calibZeroPixel-detectedHeightY)
+    print("detected distance pixel: ", table.getNumber("Distance"))
+    print("detected degree: ", table.getNumber("Degree"))
+    #print("detected distance inches: ",  mathLol(calibZeroPixel-detectedHeightY))
     #print("detected distance: " + str((imgH -calibZeroPixel)*conversion))
     cv.imshow('img',img3)
 
