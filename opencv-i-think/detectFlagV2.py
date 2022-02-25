@@ -18,7 +18,7 @@ def connect():
         print(info, '; Connected=%s' % connected)
         with cond:
             notified[0] = True
-            cond.notify()
+            cond.notify()   
 
 
     NetworkTables.initialize(server='roborio-2643-frc.local')
