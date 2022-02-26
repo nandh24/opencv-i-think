@@ -40,6 +40,7 @@ if(Connected_to_server == False):
 
 while True:
     capture.set(cv.CAP_PROP_FPS, 15)
+
     def mathLol(a):
         if(a!=0):
             heightHub = 78.0
@@ -56,21 +57,11 @@ while True:
         else:
             return ("Robot too close/far to determine")
 
-    
-
-
-
-
-
-
-
-
     isTrue, img = capture.read()               
 
     img2 = cv.cvtColor(img, cv.COLOR_RGB2GRAY)
 
     templates = [cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/68.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/68(2).jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/74.5.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/84.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/68.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/115.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/162.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/209.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/256.jpg', 0), cv.imread('/home/pi/Downloads/Vision/opencv-i-think-main/opencv-i-think/photos/303.jpg', 0)]
-    
     
     ret, img3 = cv.threshold(img2, 249, 255, 0)
 
@@ -133,7 +124,7 @@ while True:
     print("detected distance inches: ",  mathLol(calibZeroPixel-detectedHeightY))    #print("detected distance: " + str((imgH -calibZeroPixel)*conversion))
     cv.imshow('img',img3)
 
-    if cv.waitKey(20) & 0xFF==ord('d'):
+    if cv.waitKey(1) & 0xFF==ord('d'):
         break
 capture.release()
 cv.destroyAllWindows()
