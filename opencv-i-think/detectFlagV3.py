@@ -85,7 +85,7 @@ while True:
             futures.append(future)
     while not all([i.done() for i in futures]):
         pass
-    maxes = [np.amax(future.result) for future in futures]
+    maxes = [np.amax(future.result()) for future in futures]
     maximum = max(maxes)
     index = maxes.index(maximum)
     w, h = templates[index].shape[::-1]
