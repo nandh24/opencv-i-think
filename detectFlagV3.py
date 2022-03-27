@@ -51,7 +51,6 @@ def connect():
 if(Connected_to_server == False):
     table = connect()
     print("Connected!")
-from networktables import NetworkTables
 
 
 capture.set(cv.CAP_PROP_FPS, 2)
@@ -81,6 +80,11 @@ def calculation(a):
 
             degree = (math.atan(a/startingDistancePixels)*180)/math.pi
             table.putNumber("Degree", degree)
+
+            degree2 = (math.atan(heightHub/realDistance))
+            table.putNumber("Degree2", degree2)
+
+
 
             return (str(realDistance) + " Degree: " + str(degree))
         else:
