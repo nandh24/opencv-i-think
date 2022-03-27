@@ -165,7 +165,7 @@ while True:
         print("detected distance inches: ",  calculation(turretPixels))    #print("detected distance: " + str((imgH -calibZeroPixel)*conversion))
     else:
         print("not detecting")
-    #cv.imshow('img',img3) #commented out for background use
+    cv.imshow('img',img3)
     if cv.waitKey(1) & 0xFF==ord('d'):
         break
 capture.release()
